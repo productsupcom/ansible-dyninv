@@ -1,0 +1,39 @@
+version: '2'
+services:
+  ansibleuidata:
+    image: ansible-dyninv-data
+    volumes:
+      - ./src/ansible-dyninv-api:/data/api
+      - ./src/ansible-dyninv-api-ui:/data/ui
+
+  nginx:
+    image: nginx:1.13.0
+    ports:
+      - "8080:80"
+      - "8081:81"
+    volumes_from:
+      - ansibleuidata
+    volumes:
+      - ./nginx/ui.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/api.conf:/etc/nginx/conf.d/api.conf
+      - ./api/parameters.yml:/data/api/app/config/parameters.yml
+      - ./api/var/jwt:/data/api/var/jwt
+      - ./ui/config.js:/data/ui/js/config.js
+
+  fpm:
+    image: ansible-dyninv-fpm
+    volumes_from:
+      - ansibleuidata
+    volumes:
+      - ./api/parameters.yml:/data/api/app/config/parameters.yml
+      - ./api/var/jwt:/data/api/var/jwt
+
+  db:
+    image: mariadb:10.1
+    environment:
+      - MYSQL_ROOT_PASSWORD=v3rys3cr3t
+      - MYSQL_DATABASE=ansible
+      - MYSQL_USER=ansible
+      - MYSQL_PASSWORD=ansibles3cr3tpassw0rd
+    volumes:
+      - ./mysql:/var/lib/mysql

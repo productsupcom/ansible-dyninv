@@ -1,0 +1,6 @@
+[submodule "src/ansible-dyninv-api"]
+	path = src/ansible-dyninv-api
+	url = https://github.com/productsupcom/ansible-dyninv-api
+[submodule "src/ansible-dyninv-api-ui"]
+	path = src/ansible-dyninv-api-ui
+	url = https://github.com/productsupcom/ansible-dyninv-api-ui
