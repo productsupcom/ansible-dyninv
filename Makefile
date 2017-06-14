@@ -1,7 +1,7 @@
 all : docker
 
 init :
-	git submodule init
+	git submodule update --init
 
 #composer : init
 #	cd src/ansible-dyninv-api && composer install --no-dev -nq --no-scripts
