@@ -52,4 +52,7 @@ services:
       - MYSQL_USER=ansible
       - MYSQL_PASSWORD=ansibles3cr3tpassw0rd
     volumes:
-      - ./mysql:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
