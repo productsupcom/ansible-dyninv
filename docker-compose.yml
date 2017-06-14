@@ -3,8 +3,8 @@ services:
   ansibleuidata:
     image: ansible-dyninv-data
     volumes:
-      - ./src/ansible-dyninv-api:/data/api
-      - ./src/ansible-dyninv-api-ui:/data/ui
+      - ./src/ansible-dyninv-api:/data/api:rw
+      - ./src/ansible-dyninv-api-ui:/data/ui:rw
 
   nginx:
     image: nginx:1.13.0
@@ -13,6 +13,8 @@ services:
       - "8081:81"
     volumes_from:
       - ansibleuidata
+    depends_on:
+      - fpm
     volumes:
       - ./nginx/ui.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/api.conf:/etc/nginx/conf.d/api.conf
@@ -22,11 +24,24 @@ services:
 
   fpm:
     image: ansible-dyninv-fpm
+    depends_on:
+      - db
     volumes_from:
       - ansibleuidata
     volumes:
       - ./api/parameters.yml:/data/api/app/config/parameters.yml
       - ./api/var/jwt:/data/api/var/jwt
+      - ./api/start.sh:/data/start.sh
+    entrypoint: /data/start.sh
+    environment:
+      - ANSIBLE_REST_ADMIN_USER=superadmin
+      - ANSIBLE_REST_ADMIN_EMAIL=admin@foo.bar
+      - ANSIBLE_REST_ADMIN_PASS=v3rys3cr3t
+      # needed for startup script
+      - MYSQL_ROOT_PASSWORD=v3rys3cr3t
+      - MYSQL_DATABASE=ansible
+      - MYSQL_USER=ansible
+      - MYSQL_PASSWORD=ansibles3cr3tpassw0rd
 
   db:
     image: mariadb:10.1
