@@ -1,17 +1,12 @@
-all : docker
+all : build
 
 init :
 	git submodule update --init
 
-#composer : init
-#	cd src/ansible-dyninv-api && composer install --no-dev -nq --no-scripts
+build: init
+	docker-compose build --no-cache
 
-docker: init
-	docker build . -t ansible-dyninv-data
-	docker build fpm/ -t ansible-dyninv-fpm
-
-launch: docker
-	docker-compose down
-	docker-compose up
+launch: build
+	docker-compose up --force-recreate
 
 # ex: set noexpandtab:

@@ -1,7 +1,7 @@
 version: '2'
 services:
   ansibleuidata:
-    image: ansible-dyninv-data
+    build: .
     command: "true"
     volumes:
       - ./src/ansible-dyninv-api:/data/api:rw
@@ -24,7 +24,7 @@ services:
       - ./ui/config.js:/data/ui/js/config.js
 
   fpm:
-    image: ansible-dyninv-fpm
+    build: fpm/
     depends_on:
       - db
     volumes_from:
