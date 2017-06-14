@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-until mysql -h db -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE; do
+until mysqladmin ping -h db -u $MYSQL_USER -p$MYSQL_PASSWORD; do
     >&2 echo "MySQL not ready"
     sleep 1
 done
