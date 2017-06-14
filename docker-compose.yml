@@ -2,6 +2,7 @@ version: '2'
 services:
   ansibleuidata:
     image: ansible-dyninv-data
+    command: "true"
     volumes:
       - ./src/ansible-dyninv-api:/data/api:rw
       - ./src/ansible-dyninv-api-ui:/data/ui:rw
