@@ -11,7 +11,7 @@ docker: init
 	docker build fpm/ -t ansible-dyninv-fpm
 
 launch: docker
-	docker-composer down
+	docker-compose down
 	docker-compose up
 
 # ex: set noexpandtab:
