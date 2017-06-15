@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -x
 
 until mysqladmin ping -h db -u $MYSQL_USER -p$MYSQL_PASSWORD; do
     >&2 echo "MySQL not ready"
@@ -14,6 +14,11 @@ php bin/console doctrine:schema:validate
 rc=$?
 if [[ $rc != 0 ]]; then
     php bin/console doctrine:schema:create
+    rc=$?
+    if [[ $rc == 2 ]]; then
+        echo "Need to force update the Schema."
+        php bin/console doctrine:schema:update
+    fi
 fi
 
 if [ -n "$ANSIBLE_REST_ADMIN_USER" ]; then
