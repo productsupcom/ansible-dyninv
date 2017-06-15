@@ -1,4 +1,4 @@
-all : build
+all : launch
 
 init :
 	git submodule update --init
