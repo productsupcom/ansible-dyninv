@@ -25,3 +25,6 @@ if [ -n "$ANSIBLE_REST_ADMIN_USER" ]; then
     echo $ANSIBLE_REST_ADMIN_USER;
     php bin/console fos:user:create  $ANSIBLE_REST_ADMIN_USER $ANSIBLE_REST_ADMIN_EMAIL $ANSIBLE_REST_ADMIN_PASS
 fi
+
+#/usr/local/sbin/php-fpm -y /usr/local/etc/php-fpm.conf -F -O
+php-fpm
