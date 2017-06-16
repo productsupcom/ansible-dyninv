@@ -19,7 +19,6 @@ services:
     volumes:
       - ./nginx/ui.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/api.conf:/etc/nginx/conf.d/api.conf
-      - ./api/parameters.yml:/data/api/app/config/parameters.yml
       - ./api/var/jwt:/data/api/var/jwt
       - ./ui/config.js:/data/ui/js/config.js
 
