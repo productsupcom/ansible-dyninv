@@ -7,6 +7,7 @@ until mysqladmin ping -h db -u $MYSQL_USER -p$MYSQL_PASSWORD; do
 done
 
 cd /data/api/
+j2 app/config/parameters.yml.j2 > app/config/parameters.yml
 composer install --no-interaction
 
 php bin/console doctrine:schema:validate

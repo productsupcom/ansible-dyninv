@@ -30,7 +30,6 @@ services:
     volumes_from:
       - ansibleuidata
     volumes:
-      - ./api/parameters.yml:/data/api/app/config/parameters.yml
       - ./api/var/jwt:/data/api/var/jwt
       - ./api/start.sh:/data/start.sh
     entrypoint: /data/start.sh
@@ -43,6 +42,7 @@ services:
       - MYSQL_DATABASE=ansible
       - MYSQL_USER=ansible
       - MYSQL_PASSWORD=ansibles3cr3tpassw0rd
+      - API_SECRET_TOKEN=ThisTokenIsNotSoSecretChangeIt
 
   db:
     image: mariadb:10.1

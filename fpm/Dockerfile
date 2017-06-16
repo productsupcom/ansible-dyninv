@@ -6,5 +6,7 @@ RUN docker-php-ext-install -j$(nproc) mysqli
 RUN docker-php-ext-install -j$(nproc) curl
 RUN docker-php-ext-install -j$(nproc) mbstring
 RUN docker-php-ext-install -j$(nproc) zip
+RUN apt-get install -y python-pip
+RUN pip install j2cli
 
 RUN curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin
